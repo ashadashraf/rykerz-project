@@ -1,0 +1,164 @@
+{% extends 'userside/base.html' %}
+
+{% block content %}
+<div class="main">
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="static/images/img1.jpeg" class="d-block w-100" alt="...">
+        </div>
+      </div>
+  </div>
+  <br>
+  <div class="bg-black">
+    <br>
+    <div class="category-box bg-white">
+      <h3 class="display-4 font-weight-bold text-center">C A T E G O R I E S</h3>
+    </div>
+  </div>
+  <div class="bg-black">
+    <br>
+    <div class="bg-white">
+      <br>
+      <div class="row d-flex justify-content-around mt-3">
+        <br>
+        <div class="col md-4 d-flex justify-content-around">
+          <div>
+            <a href="{% url 'user-d-product' 'CHICKEN' user.id %}"><img src="static/images/img2.svg" alt=""></a>
+            <h2 class="d-flex justify-content-center">CHICKEN</h2>
+          </div>
+        </div>
+        <div class="col md-4 p-0 d-flex justify-content-around">
+          <div>
+            <a href="{% url 'user-d-product' 'BEEF' user.id %}"><img src="static/images/img3.svg" alt=""></a>
+            <h2 class="d-flex justify-content-center">BEEF</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white">
+    <br>
+    <div class="category-box bg-black">
+      <h3 class="display-5 font-weight-bold text-center text-light pt-2 pb-3">Best Sellers</h3>
+    </div>
+  </div>
+  <div class="bg-white">
+    <br>
+    <div class="bg-black">
+      <br>
+      <h2 class="pt-2 pl-5 pb-4 ml-4 text-white">CHICKEN</h2>
+      <div class="row d-flex justify-content-start ml-5 mr-5">
+        <div class="row bg-black p-5 d-flex justify-content-right">
+          {% for bst in top_chicken_products %}
+          <div class="card-group col-md-3 col-sm-6 mb-5">
+              <div class="card c-card rounded-2">
+                  <div class="image-container">
+                      <a href="{% url 'userdisplayproductdetails' bst.product.id user.id %}"><img src="/media/{{ bst.product.product_image_id.image1 }}" class="cardimages card-img-top rounded-2 p-1" alt="image"></a>
+                  </div>
+                
+                  <div class="card-body row">
+                      <div class="col-9">
+                          <h5 class="card-title">{{ bst.product.product_name }}</h5>
+                      </div>
+                      <p class="card-text">{{ bst.product.product_label }}</p>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between align-items-center">
+                      {% if bst.product.offer_price %}
+                      <h4 class="card-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.offer_price }}
+                      </h4>
+                      <h6 class="card-text">
+                          <del><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.sales_price }}</del>
+                      </h6>
+                      {% else %}
+                      <h4 class="card-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.sales_price }}
+                      </h4>
+                      {% endif %}
+                      <small class="text-muted">{{ bst.product.duration }}</small>
+                      <a href="{% url 'addtocart' bst.product.id user.id 1 'home' %}" class="btn btn-outline-danger mr-2">Add</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      </div>
+      <div class="col text-center">
+        <a href="{% url 'user-d-product' 'CHICKEN' user.id %}"><button type="button" class="btn btn-outline-light">View All</button></a>
+      </div>
+    </div>
+
+
+    <div class="bg-black">
+      <br>
+      <h2 class="pt-2 pl-5 pb-4 ml-4 text-white">BEEF</h2>
+      <div class="row d-flex justify-content-start ml-5 mr-5">
+        <div class="row bg-black p-5 d-flex justify-content-right">
+          {% for bst in top_beef_products %}
+          <div class="card-group col-md-3 col-sm-6 mb-5">
+              <div class="card c-card rounded-2">
+                  <div class="image-container">
+                      <a href="{% url 'userdisplayproductdetails' bst.product.id user.id %}"><img src="/media/{{ bst.product.product_image_id.image1 }}" class="cardimages card-img-top rounded-2 p-1" alt="image"></a>
+                  </div>
+                
+                  <div class="card-body row">
+                      <div class="col-9">
+                          <h5 class="card-title">{{ bst.product.product_name }}</h5>
+                      </div>
+                      <p class="card-text">{{ bst.product.product_label }}</p>
+                  </div>
+                  <div class="card-footer d-flex justify-content-between align-items-center">
+                      {% if bst.product.offer_price %}
+                      <h4 class="card-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.offer_price }}
+                      </h4>
+                      <h6 class="card-text">
+                          <del><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.sales_price }}</del>
+                      </h6>
+                      {% else %}
+                      <h4 class="card-text">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                          <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                          </svg>
+                          {{ bst.product.sales_price }}
+                      </h4>
+                      {% endif %}
+                      <small class="text-muted">{{ bst.product.duration }}</small>
+                      <a href="{% url 'addtocart' bst.product.id user.id 1 'home' %}" class="btn btn-outline-danger mr-2">Add</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      </div>
+      <div class="col text-center pb-5">
+        <a href="{% url 'user-d-product' 'BEEF' user.id %}"><button type="button" class="btn btn-outline-light">View All</button></a>
+      </div>
+    </div>
+
+    <div class="col text-center mt-5 pt-3 mb-5 pt-3">
+      <button type="button" class="btn btn-outline-dark">SHARE YOUR FEEDBACK HERE</button>
+    </div>
+
+  </div>
+
+  {% include 'userside/footer.html' %}
+
+</div>
+{% endblock %}
